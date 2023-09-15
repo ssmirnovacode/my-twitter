@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.link {
+  @apply bg-slate-900 my-4 p-3 rounded-lg block
+}
