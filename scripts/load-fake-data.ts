@@ -41,6 +41,21 @@ async function loadFakeData(numUsers: number = 10) {
       }
     }
 
+    for (const row1 of lastCreatedUsers.rows) {
+      for (const row2 of lastCreatedUsers.rows) {
+        if (row1 !== row2) {
+          // user can't follow himself
+          if (Math.random() > 0.5) {
+            // 50%ish chance
+            await client.query(
+              "insert into follows (user_id, follower_id) values ($1, $2)",
+              [row1.id, row2.id]
+            );
+          }
+        }
+      }
+    }
+
     await client.query("commit");
   } catch (error) {
     await client.query("rollback");
