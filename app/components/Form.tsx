@@ -38,8 +38,12 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
       setUsername("");
       setPassword("");
       setConfirmPassword("");
+      // TODO - auto-login on signup
       endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
-    } else alert("Form submission failed!");
+    } else {
+      // TODO - display errors
+      alert("Form submission failed!");
+    }
   }
 
   const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";
