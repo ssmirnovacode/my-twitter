@@ -21,8 +21,11 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
     setErrors([]);
 
     if (endpoint === SIGNUP && password !== confirmPassword) {
-      errors.push("Passwords don't match!");
-      alert("Passwords don't match!");
+      const newErrors = [];
+      newErrors.push("Passwords don't match!");
+      setErrors(newErrors);
+      // const timer = setTimeout(() => setErrors([]), 2000);
+      //alert("Passwords don't match!");
       return;
     }
 
@@ -51,7 +54,7 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 p-5 max-w-xs w-full bg-slate-800 rounded-lg"
+      className="flex flex-col gap-2 p-5 max-w-xs w-full bg-slate-800 rounded-lg "
     >
       <div className="text-center">
         <h3 className="font-semibold">{CTA}</h3>
@@ -101,6 +104,11 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
         >
           {CTA}
         </button>
+        {errors.map((err) => (
+          <div key={err} className="text-red-600">
+            {err}
+          </div>
+        ))}
       </div>
     </form>
   );
