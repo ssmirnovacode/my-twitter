@@ -1,7 +1,9 @@
+import Form from "./form";
+
 export default function SignIn() {
   return (
     <div>
-      <h2>Sign in</h2>
+      <Form />
     </div>
   );
 }

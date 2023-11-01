@@ -3,5 +3,9 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main>{children}</main>;
+  return (
+    <main className="flex min-h-screen max-w-md items-center justify-center m-auto">
+      {children}
+    </main>
+  );
 }
