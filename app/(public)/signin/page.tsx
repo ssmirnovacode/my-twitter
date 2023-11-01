@@ -1,9 +1,10 @@
-import Form from "./form";
+import Form from "@/app/components/Form";
+import { LOGIN } from "@/utils/constants";
 
 export default function SignIn() {
   return (
     <div>
-      <Form />
+      <Form endpoint={LOGIN} />
     </div>
   );
 }

@@ -24,7 +24,10 @@ export async function POST(req: Request) {
     .setExpirationTime("2w")
     .sign(new TextEncoder().encode("my-jwt-secret"));
 
-  const response = NextResponse.json({ msg: "Login successful" });
+  const response = NextResponse.json(
+    { msg: "Login successful" },
+    { status: 200 }
+  );
   //preventing cross-site request forgery
   response.cookies.set("jwt", token, {
     sameSite: "strict",

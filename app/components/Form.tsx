@@ -1,16 +1,32 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { FormEndpoint } from "@/types";
+import { SIGNUP } from "@/utils/constants";
 
-export default function Form() {
+export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   const router = useRouter();
 
   const [username, setUsername] = useState<undefined | string>("");
   const [password, setPassword] = useState<undefined | string>("");
+  const [confirmPassword, setConfirmPassword] = useState<undefined | string>(
+    ""
+  );
+
+  const [errors, setErrors] = useState<string[]>([]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    const res = await fetch("api/login", {
+
+    setErrors([]);
+
+    if (endpoint === SIGNUP && password !== confirmPassword) {
+      errors.push("Passwords don't match!");
+      alert("Passwords don't match!");
+      return;
+    }
+
+    const res = await fetch(`/api/${endpoint}`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: {
@@ -18,9 +34,15 @@ export default function Form() {
       },
     });
 
-    if (res.ok) router.push("/feed");
-    else alert("log in failed!");
+    if (res.ok) {
+      setUsername("");
+      setPassword("");
+      setConfirmPassword("");
+      endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
+    } else alert("Form submission failed!");
   }
+
+  const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";
 
   return (
     <form
@@ -28,7 +50,7 @@ export default function Form() {
       className="flex flex-col gap-2 p-5 max-w-xs w-full bg-slate-800 rounded-lg"
     >
       <div className="text-center">
-        <h3 className="font-semibold">Sign in form</h3>
+        <h3 className="font-semibold">{CTA}</h3>
       </div>
       <div className="my-3">
         <hr />
@@ -56,11 +78,24 @@ export default function Form() {
             required
           />
         </div>
+        {endpoint === SIGNUP && (
+          <div className="flex flex-col gap-2">
+            <label htmlFor="confirmPassword">Confirm password</label>
+            <input
+              className="text-black p-3 border border-slate-700 rounded-lg"
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+        )}
         <button
           className="mt-4 bg-slate-900 text-white p-3 rounded-lg w-full"
           type="submit"
         >
-          Sign in
+          {CTA}
         </button>
       </div>
     </form>

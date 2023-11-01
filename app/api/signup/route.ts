@@ -20,5 +20,5 @@ export async function POST(req: Request) {
     hash,
   ]);
 
-  return NextResponse.json({ msg: "Registration completed!" });
+  return NextResponse.json({ msg: "Registration completed!" }, { status: 201 });
 }
