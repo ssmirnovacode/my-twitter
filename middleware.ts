@@ -4,7 +4,10 @@ import { jwtVerify } from "jose";
 export async function middleware(req: NextRequest) {
   const { pathname } = req?.nextUrl || {};
 
-  const authenticatedApiRoutes = [pathname.startsWith("/api/users")];
+  const authenticatedApiRoutes = [
+    pathname.startsWith("/api/users"),
+    pathname.startsWith("/api/posts"),
+  ];
 
   if (authenticatedApiRoutes.includes(true)) {
     const cookie = req?.cookies?.get("jwt");
@@ -17,10 +20,7 @@ export async function middleware(req: NextRequest) {
       await jwtVerify(cookie.value, secret);
     } catch (err) {
       console.error(err);
-      return NextResponse.json(
-        { error: "Internal server error" },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: "JWT error" }, { status: 401 });
     }
   }
 }
