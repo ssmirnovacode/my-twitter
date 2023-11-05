@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const renderLink = (path: string) => {
     return (
-      <li>
+      <li key={path}>
         <Link
           href={path}
           className={pathname.startsWith(path) ? "underline font-bold" : ""}
