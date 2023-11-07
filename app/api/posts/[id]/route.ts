@@ -42,5 +42,22 @@ export async function PATCH(
     params.id,
   ]);
 
-  return NextResponse.json({ msg: "update success" }, { status: 201 });
+  return NextResponse.json({ msg: "update success" }, { status: 200 });
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: number } }
+) {
+  const jwtPayload = await getJWTPayload();
+
+  const res = await sql("delete from posts where id = $1 and user_id = $2", [
+    params.id,
+    jwtPayload?.sub,
+  ]);
+
+  if (res.rowCount === 1)
+    return NextResponse.json({ msg: "delete success" }, { status: 200 });
+
+  return NextResponse.json({ error: "Not found " }, { status: 404 });
 }
