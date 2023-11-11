@@ -1,4 +1,5 @@
 import { getJWTPayload } from "@/app/helpers/auth";
+import { getPageNumber } from "@/app/helpers/utils";
 import { sql } from "@/db";
 import { NextResponse } from "next/server";
 
@@ -7,8 +8,7 @@ export async function GET(req: Request) {
 
   const { searchParams } = new URL(req.url);
   const username = searchParams.get("username");
-  const page =
-    (searchParams.get("page") && parseInt(searchParams.get("page")!)) || 0;
+  const page = getPageNumber(searchParams);
 
   const limit = 3;
   const offset = page * limit;
