@@ -1,10 +1,10 @@
-import FollowingContainer from "./FollowingContainer";
+import UsersContainer from "@/app/components/UsersContainer";
 
 export default async function Following() {
   return (
     <main>
       <h2>Following</h2>
-      <FollowingContainer />
+      <UsersContainer endpoint="following" />
     </main>
   );
 }

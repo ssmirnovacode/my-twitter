@@ -3,21 +3,27 @@ import User from "@/app/components/User";
 import { IUser } from "@/app/types";
 import useSWR from "swr";
 
-export default function FollowingList({ index }: { index: number }) {
+export default function UsersList({
+  index,
+  endpoint,
+}: {
+  index: number;
+  endpoint: string;
+}) {
   const { data: userData } = useSWR("/api/users/profile");
   const {
-    data: followerData,
+    data: otherUsersData,
     error,
     isLoading,
-  } = useSWR(() => `/api/users/${userData.data.id}/following?page=${index}`);
+  } = useSWR(() => `/api/users/${userData.data.id}/${endpoint}?page=${index}`);
 
-  if (!followerData) return <div>Loading...</div>;
-  console.log("followerData", followerData);
+  if (!otherUsersData) return <div>Loading...</div>;
+
   if (error) return <div>failed to load</div>;
 
   return (
     <ul>
-      {followerData.data.map((user: IUser) => {
+      {otherUsersData.data.map((user: IUser) => {
         return (
           <li key={user.id} className="my-5">
             {/* TODO add link href */}

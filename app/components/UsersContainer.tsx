@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
-import FollowingList from "./FollowingList";
+import UsersList from "./UsersList";
 
-export default function FollowingContainer() {
+export default function UsersContainer({ endpoint }: { endpoint: string }) {
   const [count, setCount] = useState(1); // counts how many times 'load more' button was clicked
 
   const pages = [];
 
   for (let i = 0; i < count; i++) {
-    pages.push(<FollowingList index={i} key={i} />);
+    pages.push(<UsersList endpoint={endpoint} index={i} key={i} />);
   }
   return (
     <div>
