@@ -13,18 +13,23 @@ export async function GET(req: Request) {
   const limit = 3;
   const offset = page * limit;
 
+  const statement = `select p.*, u.avatar, u.username from posts p 
+                    inner join users u on p.user_id = u.id 
+                    where user_id = $1
+                    order by created_at desc limit $2 offset $3`;
+
   if (username) {
-    // TODO Profile pages of other users
+    const user = await sql("select * from users where username ilike $1", [
+      username,
+    ]);
+    if (!user.rowCount)
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+    const res = await sql(statement, [user.rows[0].id, limit, offset]);
+    return NextResponse.json({ data: res.rows });
   }
 
-  const res = await sql(
-    `select p.*, u.avatar, u.username from posts p 
-    inner join users u on p.user_id = u.id 
-    where user_id = $1
-    order by created_at desc limit $2 offset $3`,
-    [jwtPayload?.sub, limit, offset]
-  );
-
+  const res = await sql(statement, [jwtPayload?.sub, limit, offset]);
   return NextResponse.json({ data: res.rows });
 }
 
