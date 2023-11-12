@@ -1,6 +1,7 @@
 "use client";
 import useSWR from "swr";
 import EditPost from "./EditPost";
+import DeleteButton from "./DeleteButton";
 
 export default function EditPostPage({ params }: { params: { id: number } }) {
   const { data, error, isLoading } = useSWR(`/api/posts/${params.id}`);
@@ -11,9 +12,9 @@ export default function EditPostPage({ params }: { params: { id: number } }) {
   return (
     <div>
       <h2>Edit post</h2>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-5">
         <EditPost prevPost={data.data} />
-        {/* <DeleteButton /> */}
+        <DeleteButton postId={data.data.id} />
       </div>
     </div>
   );

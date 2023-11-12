@@ -39,7 +39,7 @@ export default function EditPost({ prevPost }: { prevPost: IPost }) {
         onChange={(e) => setPost(e.target.value)}
       ></textarea>
       <button type="submit" className="bg-slate-900 p-2 rounded-lg">
-        Edit what you posted before
+        Take your words back
       </button>
     </form>
   );
