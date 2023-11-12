@@ -48,3 +48,32 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ msg: "Started following successfully" });
 }
+
+// unfollow a user
+// /api/follows?id=123
+export async function DELETE(req: Request) {
+  const jwtPayload = await getJWTPayload();
+  const { searchParams } = new URL(req.url);
+  const idToUnfollow = searchParams.get("id");
+
+  const checkIfFollows = await sql(
+    `select * from follows where user_id = $1 and follower_id = $2 `,
+    [idToUnfollow, jwtPayload.sub]
+  );
+
+  if (!checkIfFollows.rowCount)
+    return NextResponse.json(
+      { error: "Not following this user already" },
+      { status: 409 }
+    );
+
+  const res = await sql(
+    `delete from follows where user_id = $1 and follower_id = $2`,
+    [idToUnfollow, jwtPayload.sub]
+  );
+
+  if (res.rowCount === 1)
+    return NextResponse.json({ msg: "delete success" }, { status: 200 });
+
+  return NextResponse.json({ error: "Not found " }, { status: 404 });
+}
