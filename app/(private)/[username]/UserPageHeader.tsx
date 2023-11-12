@@ -1,4 +1,5 @@
 "use client";
+import { notFound } from "next/navigation";
 import useSWR, { useSWRConfig } from "swr";
 export default function UserPageHeader({ username }: { username: string }) {
   const { mutate } = useSWRConfig();
@@ -16,6 +17,10 @@ export default function UserPageHeader({ username }: { username: string }) {
 
   if (errorFollow || errorUser) return <div>Failed to load</div>;
   if (isLoadingFollow || isLoadingUser) return <div>Loading...</div>;
+
+  if (!dataUser?.data) {
+    notFound(); // Next.js function that takes us to 404 page
+  }
 
   const handleFollow = async () => {
     const res = await fetch("/api/follows", {
