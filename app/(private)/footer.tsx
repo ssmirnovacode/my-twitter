@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <footer>&copy; My-twitter {new Date().getFullYear()}</footer>;
+  return <footer>&copy; TW*TTER {new Date().getFullYear()}</footer>;
 }

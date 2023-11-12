@@ -39,7 +39,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
               No
             </button>
             <button
-              className="bg-slate-900 p-2 rounded-lg w-24"
+              className="bg-red-900 p-2 rounded-lg w-24"
               onClick={handleDelete}
             >
               Yes!
