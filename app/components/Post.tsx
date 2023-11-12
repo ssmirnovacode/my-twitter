@@ -48,8 +48,12 @@ export default function Post({
           {createAt.toLocaleDateString("en-GB", options)}
         </div>
         <p>{content}</p>
-        {currentUser && <Link href={`profile/edit-post/${post.id}`}>Edit</Link>}
       </div>
+      {currentUser === post.username && (
+        <div className="text-right flex-grow">
+          <Link href={`profile/edit-post/${post.id}`}>Edit</Link>
+        </div>
+      )}
     </article>
   );
 }
