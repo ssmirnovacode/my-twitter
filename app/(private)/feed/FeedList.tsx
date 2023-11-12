@@ -14,7 +14,7 @@ export default function FeedList({ index }: { index: number }) {
       {data.data.map((post: IPost) => {
         return (
           <li key={post.id} className="my-5">
-            <Post post={post} />
+            <Post currentUser="" post={post} />
           </li>
         );
       })}
