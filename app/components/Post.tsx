@@ -2,7 +2,13 @@ import Link from "next/link";
 import { IPost } from "../types";
 import Image from "next/image";
 
-export default function Post({ post }: { post: IPost }) {
+export default function Post({
+  post,
+  currentUser = "",
+}: {
+  post: IPost;
+  currentUser: string;
+}) {
   const { avatar, content, created_at, username } = post || {};
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -42,6 +48,7 @@ export default function Post({ post }: { post: IPost }) {
           {createAt.toLocaleDateString("en-GB", options)}
         </div>
         <p>{content}</p>
+        {currentUser && <Link href={`profile/edit-post/${post.id}`}>Edit</Link>}
       </div>
     </article>
   );

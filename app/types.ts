@@ -11,3 +11,4 @@ export interface IPost {
   username: string;
   avatar: string;
 }
+// TODO add updated_at for edited posts

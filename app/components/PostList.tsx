@@ -14,6 +14,11 @@ export default function PostList({
   const { data, error, isLoading } = useSWR(
     () => `/api/posts?page=${index}&username=${username}`
   );
+  const {
+    data: user,
+    error: userError,
+    isLoading: isLoadingUser,
+  } = useSWR("/api/users/profile");
 
   if (error) return <div>Failed to load the posts</div>;
   if (isLoading) return <div>Loading...</div>;
@@ -23,7 +28,7 @@ export default function PostList({
       {data.data.map((post: IPost) => {
         return (
           <li key={post.id} className="my-5">
-            <Post post={post} />
+            <Post currentUser={user.data.username} post={post} />
           </li>
         );
       })}

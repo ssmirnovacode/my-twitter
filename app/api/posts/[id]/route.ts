@@ -28,6 +28,8 @@ export async function PATCH(
   const body = await req.json();
   const jwtPayload = await getJWTPayload();
 
+  // TODO add checking if author === current logged in user
+
   const res = await sql("select * from posts where id = $1 and user_id = $2", [
     params.id,
     jwtPayload?.sub,
