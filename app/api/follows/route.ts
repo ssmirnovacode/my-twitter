@@ -2,7 +2,7 @@ import { getJWTPayload } from "@/app/helpers/auth";
 import { sql } from "@/db";
 import { NextResponse } from "next/server";
 
-// /api/follows?
+// /api/follows?user_id=123
 // Determines whether the currently logged in user follows a specific user
 export async function GET(req: Request) {
   // get currently logged in user
