@@ -23,3 +23,28 @@ export async function GET(req: Request) {
 
   return NextResponse.json({ data: res.rows });
 }
+
+// to follow a user
+//
+export async function POST(req: Request) {
+  const jwtPayload = await getJWTPayload();
+  const body = await req.json();
+
+  const checkIfAlreadyFollows = await sql(
+    `select * from follows where user_id = $1 and follower_id = $2 `,
+    [body.user_id, jwtPayload.sub]
+  );
+
+  if (checkIfAlreadyFollows.rowCount > 1)
+    return NextResponse.json(
+      { error: "Already following this user" },
+      { status: 409 }
+    );
+
+  await sql(`insert into follows (user_id, follower_id) values ($1, $2)`, [
+    body.user_id,
+    jwtPayload.sub,
+  ]);
+
+  return NextResponse.json({ msg: "Started following successfully" });
+}
