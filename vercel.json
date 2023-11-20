@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/delete-misinformation-job?cron_api_key=my-super-douper-cron-api-key",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

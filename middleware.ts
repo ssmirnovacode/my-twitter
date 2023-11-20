@@ -8,7 +8,11 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/api/users"),
     pathname.startsWith("/api/posts"),
     pathname.startsWith("/api/follows"),
+    pathname.startsWith("/api/admin"),
+    pathname.startsWith("/api/search"),
   ];
+
+  const authenticatedCronRoutes = [pathname.startsWith("/api/cron")];
 
   if (authenticatedApiRoutes.includes(true)) {
     const cookie = req?.cookies?.get("jwt");
@@ -22,6 +26,14 @@ export async function middleware(req: NextRequest) {
     } catch (err) {
       console.error(err);
       return NextResponse.json({ error: "JWT error" }, { status: 401 });
+    }
+  }
+
+  if (authenticatedCronRoutes.includes(true)) {
+    const key = req.nextUrl.searchParams.get("cron_api_key");
+    const isAuthenticated = key === process.env.CRON_API_KEY;
+    if (!isAuthenticated) {
+      return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
     }
   }
 }
