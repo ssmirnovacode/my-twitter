@@ -27,5 +27,5 @@ body {
 }
 
 .link {
-  @apply bg-slate-900 my-4 p-3 rounded-lg block
+  @apply dark:bg-slate-900 bg-slate-400 my-4 p-3 rounded-lg block
 }

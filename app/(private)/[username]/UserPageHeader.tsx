@@ -49,13 +49,16 @@ export default function UserPageHeader({ username }: { username: string }) {
       <h2 className="text-lg font-bold">{username}</h2>
       {dataFollow.data.length ? (
         <button
-          className="bg-slate-900 p-2 rounded-lg"
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
           onClick={handleUnfollow}
         >
           Unfollow
         </button>
       ) : (
-        <button className="bg-slate-900 p-2 rounded-lg" onClick={handleFollow}>
+        <button
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+          onClick={handleFollow}
+        >
           Follow
         </button>
       )}

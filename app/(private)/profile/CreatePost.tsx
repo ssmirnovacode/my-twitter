@@ -29,12 +29,15 @@ export default function CreatePost() {
   return (
     <form onSubmit={handleSubmit}>
       <textarea
-        className="bg-gray-700 p-2 rounded-lg w-full my-2"
+        className="bg-white text-black p-2 rounded-lg w-full my-2"
         placeholder="What's the drama this time?"
         value={post}
         onChange={(e) => setPost(e.target.value)}
       ></textarea>
-      <button type="submit" className="bg-slate-900 p-2 rounded-lg">
+      <button
+        type="submit"
+        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+      >
         Let everyone know
       </button>
     </form>

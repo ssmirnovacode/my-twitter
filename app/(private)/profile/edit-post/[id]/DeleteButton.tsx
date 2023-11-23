@@ -33,7 +33,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
           </p>
           <div className="flex flex-row justify-around my-3">
             <button
-              className="bg-slate-900 p-2 rounded-lg w-24"
+              className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-24"
               onClick={handleCancel}
             >
               No
@@ -48,7 +48,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
         </div>
       ) : (
         <button
-          className="bg-slate-900 p-2 rounded-lg"
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
           onClick={() => setShowConfirm(true)}
         >
           Delete post

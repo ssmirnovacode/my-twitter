@@ -59,13 +59,13 @@ export default function SearchBar() {
     <div className="flex flex-row max-w-md w-full justify-end relative">
       <input
         onChange={handleChange}
-        className="p-2 rounded-lg bg-gray-700 my-2 max-w-xs"
+        className="p-2 rounded-lg bg-white dark:bg-gray-700 dark:text-white text-black my-2 max-w-xs"
         placeholder="Search..."
         ref={ref}
         value={term}
       />
       {searchResults.length ? (
-        <ul className="flex flex-col bg-gray-700 absolute p-2 rounded-lg top-14 right-2 w-full max-w-sm">
+        <ul className="flex flex-col bg-white text-black absolute p-2 rounded-lg top-14 right-2 w-full max-w-sm">
           {searchResults.map((res: IUser) => (
             <li key={res.id} className="my-3">
               <User href={res.username} user={res} />
