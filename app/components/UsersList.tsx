@@ -2,6 +2,7 @@
 import User from "@/app/components/User";
 import { IUser } from "@/app/types";
 import useSWR from "swr";
+import { fetcher } from "../helpers/fetcher";
 
 export default function UsersList({
   index,
@@ -15,7 +16,10 @@ export default function UsersList({
     data: otherUsersData,
     error,
     isLoading,
-  } = useSWR(() => `/api/users/${userData.data.id}/${endpoint}?page=${index}`);
+  } = useSWR(
+    () => `/api/users/${userData.data.id}/${endpoint}?page=${index}`,
+    fetcher
+  );
 
   if (!otherUsersData) return <div>Loading...</div>;
 

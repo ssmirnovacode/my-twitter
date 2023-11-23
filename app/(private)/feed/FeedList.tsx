@@ -1,10 +1,14 @@
 "use client";
 import Post from "@/app/components/Post";
+import { fetcher } from "@/app/helpers/fetcher";
 import { IPost } from "@/app/types";
 import useSWR from "swr";
 
 export default function FeedList({ index }: { index: number }) {
-  const { data, error, isLoading } = useSWR("/api/posts/feed?page=" + index);
+  const { data, error, isLoading } = useSWR(
+    "/api/posts/feed?page=" + index,
+    fetcher
+  );
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
