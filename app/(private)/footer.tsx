@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <footer>&copy; TW*TTER {new Date().getFullYear()}</footer>;
+  return <footer>&copy; WHINE·online {new Date().getFullYear()}</footer>;
 }

@@ -13,7 +13,7 @@ export default async function PublicFeed() {
 
   return (
     <main className="my-5 p-2 text-black dark:text-white">
-      <h1 className="font-mono text-lg">TW*TTER | Feed</h1>
+      <h1 className="font-mono text-lg">WHINE·online | Feed</h1>
       <div>
         <h2 className="text-lg font-bold">Recent posts from the community</h2>
         <ul>

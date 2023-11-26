@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className="flex flex-row w-full p-5 dark:bg-slate-800 bg-slate-300 rounded-lg my-2 justify-between items-center">
       <div>
-        <h1 className="font-mono text-lg">TW*TTER</h1>
+        <h1 className="font-mono text-lg">WHINE·online</h1>
       </div>
       <div>
         <User user={data.data} href="account" />

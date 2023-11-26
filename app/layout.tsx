@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TW*TTER",
-  description: "Sarcastic social media app",
+  title: "WHINE·online",
+  description: "Sarcastic social media app for people who enjoy complaining",
 };
 
 export default function RootLayout({
