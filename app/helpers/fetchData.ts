@@ -5,7 +5,7 @@ const LOCALHOST = "http://localhost:3000";
 export const fetchData = async (
   url: string
 ): Promise<{
-  data: IUser;
+  data: IUser | undefined;
   error: { msg: string | undefined; status?: number } | null;
   loading: boolean;
 }> => {
@@ -21,11 +21,12 @@ export const fetchData = async (
   }).catch((err) => {
     error = { msg: err?.message, status: err?.statusCode };
   });
-  console.log("json", await response?.json());
-  const { data, status } = (await response?.json()) || {};
-  if (!data && !error) error = { msg: "Could not fetch user", status };
-  loading = false;
-  console.log("data", data);
+  if (response) {
+    const { data, status } = (await response?.json()) || {};
+    if (!data && !error) error = { msg: "Could not fetch user", status };
+    loading = false;
+    console.log("data", data);
 
-  return { data, error, loading };
+    return { data, error, loading };
+  } else return { data: undefined, error, loading };
 };
