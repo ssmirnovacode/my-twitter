@@ -1,21 +1,18 @@
-"use client";
-
-import useSWR from "swr";
+import "server-only";
 import CreatePost from "./CreatePost";
 import PostContainer from "@/app/components/PostContainer";
-import { fetcher } from "@/app/helpers/fetcher";
+import { fetchProfileData } from "@/app/helpers/handlers";
 
-export default function Profile() {
-  const { data, error, isLoading } = useSWR("/api/users/profile", fetcher);
+export default async function Profile() {
+  const data = await fetchProfileData();
 
-  if (error) return <div>failed to load. Error: {error.msg}</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>failed to load.</div>;
 
   return (
     <main>
       <h2>Profile</h2>
       <CreatePost />
-      <PostContainer username={data.data.username} />
+      <PostContainer username={data.username} />
     </main>
   );
 }
