@@ -20,35 +20,35 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // setErrors([]);
+    setErrors([]);
 
-    // if (endpoint === SIGNUP && password !== confirmPassword) {
-    //   const newErrors = [];
-    //   newErrors.push("Passwords don't match!");
-    //   setErrors(newErrors);
-    //   // const timer = setTimeout(() => setErrors([]), 2000);
-    //   //alert("Passwords don't match!");
-    //   return;
-    // }
+    if (endpoint === SIGNUP && password !== confirmPassword) {
+      const newErrors = [];
+      newErrors.push("Passwords don't match!");
+      setErrors(newErrors);
+      // const timer = setTimeout(() => setErrors([]), 2000);
+      //alert("Passwords don't match!");
+      return;
+    }
 
-    // const res = await fetch(`/api/${endpoint}`, {
-    //   method: "POST",
-    //   body: JSON.stringify({ username, password }),
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // });
-    // if (res.ok) {
-    //   setUsername("");
-    //   setPassword("");
-    //   setConfirmPassword("");
-    //   // TODO - auto-login on signup
-    //   endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
-    // } else {
-    //   // TODO - display errors
-    //   alert("Form submission failed!");
-    // }
-    // setLoading(false);
+    const res = await fetch(`/api/${endpoint}`, {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    if (res.ok) {
+      setUsername("");
+      setPassword("");
+      setConfirmPassword("");
+      // TODO - auto-login on signup
+      endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
+    } else {
+      // TODO - display errors
+      alert("Form submission failed!");
+    }
+    setLoading(false);
   }
 
   const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";

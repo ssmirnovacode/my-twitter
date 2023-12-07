@@ -1,4 +1,5 @@
 "use client";
+import Spinner from "@/app/components/Spinner/Spinner";
 import { notFound } from "next/navigation";
 import useSWR, { useSWRConfig } from "swr";
 export default function UserPageHeader({ username }: { username: string }) {
@@ -16,7 +17,7 @@ export default function UserPageHeader({ username }: { username: string }) {
   } = useSWR(() => `/api/follows?user_id=${dataUser.data.id}`);
 
   if (errorFollow || errorUser) return <div>Failed to load</div>;
-  if (isLoadingFollow || isLoadingUser) return <div>Loading...</div>;
+  if (isLoadingFollow || isLoadingUser) return <Spinner />;
 
   if (!dataUser?.data) {
     notFound(); // Next.js function that takes us to 404 page

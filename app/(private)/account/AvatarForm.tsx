@@ -1,3 +1,4 @@
+import Spinner from "@/app/components/Spinner/Spinner";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
@@ -5,7 +6,7 @@ export default function AvatarForm() {
   const { data, error, isLoading } = useSWR("/api/users/profile");
 
   if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   const { avatar } = data?.data || {};
 

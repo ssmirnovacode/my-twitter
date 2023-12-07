@@ -2,6 +2,7 @@
 import Post from "@/app/components/Post";
 import { IPost } from "@/app/types";
 import useSWR from "swr";
+import Spinner from "./Spinner/Spinner";
 
 // TODO unite with FeedList
 export default function PostList({
@@ -21,7 +22,7 @@ export default function PostList({
   } = useSWR("/api/users/profile");
 
   if (error) return <div>Failed to load the posts</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   return (
     <ul>
