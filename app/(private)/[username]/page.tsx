@@ -1,7 +1,18 @@
 import PostContainer from "@/app/components/PostContainer";
 import UserPageHeader from "./UserPageHeader";
+import { redirect } from "next/navigation";
+import { getJWTPayload } from "@/app/helpers/auth";
 
-export default function UserPage({ params }: { params: { username: string } }) {
+export default async function UserPage({
+  params,
+}: {
+  params: { username: string };
+}) {
+  const jwtPayload = await getJWTPayload();
+
+  if (!jwtPayload) {
+    redirect("/");
+  }
   return (
     <div>
       <header>
