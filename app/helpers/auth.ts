@@ -14,7 +14,8 @@ export async function getJWTPayload() {
 
 export async function authorizeAdmin(func: Function) {
   const jwtPayload = await getJWTPayload();
-  if (!jwtPayload) return;
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   const res = await sql("select is_admin from users where id = $1", [
     jwtPayload.sub,
   ]);

@@ -9,6 +9,8 @@ export async function GET(req: Request) {
   const limit = 10;
   const offset = page * limit;
   const jwtPayload = await getJWTPayload(); // to know the current user
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const res = await sql(
     `select p.*, u.username, u.avatar from posts p 

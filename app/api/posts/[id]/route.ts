@@ -9,10 +9,12 @@ export async function GET(
   // { id: number } - id corresponds to folder slug id
 
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const res = await sql("select * from posts where id = $1 and user_id = $2", [
     params.id,
-    jwtPayload?.sub,
+    jwtPayload.sub,
   ]);
 
   if (res.rowCount === 0)
@@ -27,12 +29,13 @@ export async function PATCH(
 ) {
   const body = await req.json();
   const jwtPayload = await getJWTPayload();
-
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   // TODO add checking if author === current logged in user
 
   const res = await sql("select * from posts where id = $1 and user_id = $2", [
     params.id,
-    jwtPayload?.sub,
+    jwtPayload.sub,
   ]);
 
   if (res.rowCount === 0)
@@ -40,7 +43,7 @@ export async function PATCH(
 
   await sql("update posts set content = $1 where user_id = $2 and id = $3", [
     body?.content,
-    jwtPayload?.sub,
+    jwtPayload.sub,
     params.id,
   ]);
 
@@ -52,10 +55,12 @@ export async function DELETE(
   { params }: { params: { id: number } }
 ) {
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const res = await sql("delete from posts where id = $1 and user_id = $2", [
     params.id,
-    jwtPayload?.sub,
+    jwtPayload.sub,
   ]);
 
   if (res.rowCount === 1)

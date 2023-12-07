@@ -7,6 +7,8 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   // get currently logged in user
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get("user_id");
 
@@ -28,6 +30,8 @@ export async function GET(req: Request) {
 //
 export async function POST(req: Request) {
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   const body = await req.json();
 
   const checkIfAlreadyFollows = await sql(
@@ -53,6 +57,8 @@ export async function POST(req: Request) {
 // /api/follows?id=123
 export async function DELETE(req: Request) {
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   const { searchParams } = new URL(req.url);
   const idToUnfollow = searchParams.get("id");
 

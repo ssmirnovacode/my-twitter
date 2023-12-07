@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const { searchParams } = new URL(req.url);
   const username = searchParams.get("username");
@@ -29,17 +31,19 @@ export async function GET(req: Request) {
     return NextResponse.json({ data: res.rows });
   }
 
-  const res = await sql(statement, [jwtPayload?.sub, limit, offset]);
+  const res = await sql(statement, [jwtPayload.sub, limit, offset]);
   return NextResponse.json({ data: res.rows });
 }
 
 export async function POST(req: Request) {
   const body = await req.json();
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
 
   const res = await sql(
     "insert into posts (user_id, content) values ($1, $2) returning *", //  returning * means the post we just created
-    [jwtPayload?.sub, body?.content]
+    [jwtPayload.sub, body?.content]
   );
 
   return NextResponse.json({ data: res.rows[0] }, { status: 201 });

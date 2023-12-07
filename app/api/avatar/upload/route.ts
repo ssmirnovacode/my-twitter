@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request): Promise<NextResponse> {
   const jwtPayload = await getJWTPayload();
+  if (!jwtPayload)
+    return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get("filename")!;
 
