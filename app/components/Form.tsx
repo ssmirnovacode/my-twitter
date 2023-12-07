@@ -3,10 +3,12 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { FormEndpoint } from "@/types";
 import { SIGNUP } from "@/utils/constants";
+import Spinner from "./Spinner/Spinner";
 
 export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState<undefined | string>("");
   const [password, setPassword] = useState<undefined | string>("");
   const [confirmPassword, setConfirmPassword] = useState<undefined | string>(
@@ -17,36 +19,36 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setLoading(true);
+    // setErrors([]);
 
-    setErrors([]);
+    // if (endpoint === SIGNUP && password !== confirmPassword) {
+    //   const newErrors = [];
+    //   newErrors.push("Passwords don't match!");
+    //   setErrors(newErrors);
+    //   // const timer = setTimeout(() => setErrors([]), 2000);
+    //   //alert("Passwords don't match!");
+    //   return;
+    // }
 
-    if (endpoint === SIGNUP && password !== confirmPassword) {
-      const newErrors = [];
-      newErrors.push("Passwords don't match!");
-      setErrors(newErrors);
-      // const timer = setTimeout(() => setErrors([]), 2000);
-      //alert("Passwords don't match!");
-      return;
-    }
-
-    const res = await fetch(`/api/${endpoint}`, {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-
-    if (res.ok) {
-      setUsername("");
-      setPassword("");
-      setConfirmPassword("");
-      // TODO - auto-login on signup
-      endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
-    } else {
-      // TODO - display errors
-      alert("Form submission failed!");
-    }
+    // const res = await fetch(`/api/${endpoint}`, {
+    //   method: "POST",
+    //   body: JSON.stringify({ username, password }),
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    // });
+    // if (res.ok) {
+    //   setUsername("");
+    //   setPassword("");
+    //   setConfirmPassword("");
+    //   // TODO - auto-login on signup
+    //   endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
+    // } else {
+    //   // TODO - display errors
+    //   alert("Form submission failed!");
+    // }
+    // setLoading(false);
   }
 
   const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";
@@ -99,10 +101,11 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
           </div>
         )}
         <button
-          className="mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full"
+          className="mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full flex justify-center gap-3"
           type="submit"
         >
           {CTA}
+          {loading && <Spinner />}
         </button>
         {errors.map((err) => (
           <div key={err} className="text-red-600">
