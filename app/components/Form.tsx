@@ -48,7 +48,6 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
       // TODO - display errors
       alert("Form submission failed!");
     }
-    setLoading(false);
   }
 
   const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";
