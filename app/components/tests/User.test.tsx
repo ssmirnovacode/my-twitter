@@ -4,14 +4,17 @@ import User from "../User";
 const USER = {
   id: 123,
   username: "Lana",
-  avatar: "www.avatars.com/example.jpg",
+  avatar: "/example.jpg",
 };
 
 const HREF = "/user";
 
 describe("<User />", () => {
   test("renders", () => {
-    //render(<User user={USER} href={HREF} />);
-    console.log("test is running");
+    render(<User user={USER} href={HREF} />);
+    const userComponent = screen.getByTestId("user-component");
+    expect(userComponent).toBeInTheDocument();
+    const usernameText = screen.getByText(USER.username);
+    expect(usernameText).toBeInTheDocument();
   });
 });

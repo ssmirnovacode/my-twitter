@@ -6,7 +6,7 @@ function User({ user, href }: { user: IUser; href: string }) {
   const { avatar, username } = user;
 
   return (
-    <div>
+    <div data-testid="user-component">
       <Link
         href={`/${href || username}`}
         className="flex flex-row items-center"

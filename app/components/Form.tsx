@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { FormEndpoint } from "@/types";
-import { SIGNUP } from "@/utils/constants";
 import Spinner from "./Spinner/Spinner";
+import { SIGNUP } from "../../utils/constants";
 
 export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   const router = useRouter();
