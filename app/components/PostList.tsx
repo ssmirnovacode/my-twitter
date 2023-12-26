@@ -1,5 +1,5 @@
 "use client";
-import Post from "@/app/components/Post";
+import Post from "./Post";
 import { IPost } from "@/app/types";
 import useSWR from "swr";
 import Spinner from "./Spinner/Spinner";
@@ -25,7 +25,7 @@ export default function PostList({
   if (isLoading) return <Spinner />;
 
   return (
-    <ul>
+    <ul data-testid="postlist">
       {data.data.map((post: IPost) => {
         return (
           <li key={post.id} className="my-5">

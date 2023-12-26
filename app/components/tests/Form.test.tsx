@@ -2,10 +2,9 @@ import { enableFetchMocks } from "jest-fetch-mock";
 
 enableFetchMocks();
 import fetch from "jest-fetch-mock";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Form from "../Form";
-import { act } from "react-dom/test-utils";
 
 jest.mock("next/navigation", () => ({
   useRouter() {
