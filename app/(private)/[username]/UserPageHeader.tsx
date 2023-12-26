@@ -1,6 +1,7 @@
 "use client";
 import Spinner from "@/app/components/Spinner/Spinner";
 import { notFound } from "next/navigation";
+import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 export default function UserPageHeader({ username }: { username: string }) {
   const { mutate } = useSWRConfig();
@@ -16,6 +17,8 @@ export default function UserPageHeader({ username }: { username: string }) {
     isLoading: isLoadingFollow,
   } = useSWR(() => `/api/follows?user_id=${dataUser.data.id}`);
 
+  const [loading, setLoading] = useState(false);
+
   if (errorFollow || errorUser) return <div>Failed to load</div>;
   if (isLoadingFollow || isLoadingUser) return <Spinner />;
 
@@ -24,11 +27,13 @@ export default function UserPageHeader({ username }: { username: string }) {
   }
 
   const handleFollow = async () => {
+    setLoading(true);
     const res = await fetch("/api/follows", {
       method: "POST",
       body: JSON.stringify({ user_id: dataUser.data.id }),
     });
 
+    setLoading(false);
     if (res.ok) {
       // refetch updated data
       mutate(`/api/follows?user_id=${dataUser.data.id}`);
@@ -36,10 +41,11 @@ export default function UserPageHeader({ username }: { username: string }) {
   };
 
   const handleUnfollow = async () => {
+    setLoading(true);
     const res = await fetch(`/api/follows?id=${dataFollow.data[0].user_id}`, {
       method: "DELETE",
     });
-
+    setLoading(false);
     if (res.ok) {
       // refetch updated data
       mutate(`/api/follows?user_id=${dataUser.data.id}`);
@@ -50,17 +56,17 @@ export default function UserPageHeader({ username }: { username: string }) {
       <h2 className="text-lg font-bold">{username}</h2>
       {dataFollow.data.length ? (
         <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
           onClick={handleUnfollow}
         >
-          Unfollow
+          Unfollow {loading && <Spinner />}
         </button>
       ) : (
         <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
           onClick={handleFollow}
         >
-          Follow
+          Follow {loading && <Spinner />}
         </button>
       )}
     </header>
