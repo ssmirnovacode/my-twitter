@@ -6,7 +6,7 @@ export default async function Feed() {
   const jwtPayload = await getJWTPayload();
 
   if (!jwtPayload) {
-    redirect("/");
+    redirect("/auth");
   }
 
   return (

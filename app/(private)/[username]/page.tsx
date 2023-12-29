@@ -11,7 +11,7 @@ export default async function UserPage({
   const jwtPayload = await getJWTPayload();
 
   if (!jwtPayload) {
-    redirect("/");
+    redirect("/auth");
   }
   return (
     <div>

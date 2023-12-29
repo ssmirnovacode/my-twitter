@@ -6,7 +6,7 @@ export default async function Following() {
   const jwtPayload = await getJWTPayload();
 
   if (!jwtPayload) {
-    redirect("/");
+    redirect("/auth");
   }
   return (
     <main>
