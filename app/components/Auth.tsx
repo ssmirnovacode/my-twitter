@@ -10,7 +10,7 @@ export default function Auth() {
   return (
     <>
       <Link
-        href="/auth"
+        href="/signin"
         className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2"
         onClick={handleClick}
       >
