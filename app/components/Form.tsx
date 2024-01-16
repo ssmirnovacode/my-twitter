@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import { FormEndpoint } from "@/types";
 import { FORM_FIELDS, LOGIN, SIGNUP } from "@/utils/constants";
 import ButtonWithSpinner from "./ButtonWithSpinner";
-import { validateAuth } from "./helpers/formValidation";
+import { getServerErrors, validateAuth } from "./helpers/formValidation";
 import { FieldLabel, IError } from "../types";
 
 export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
@@ -46,20 +46,12 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
       setUsername("");
       setPassword("");
       setConfirmPassword("");
-      // TODO - auto-login on signup
+      // TODO - auto-login on signup ?
       endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
     } else {
-      // TODO - display errors
       setLoading(false);
-      if (res.status === 401) {
-        setErrors([{ field: "", message: "Invalid credencials" }]);
-      } else if (res.status === 404) {
-        setErrors([{ field: "", message: "User not found" }]);
-      } else {
-        setErrors([
-          { field: "", message: "Service unavailable. Try again later" },
-        ]);
-      }
+      const errors = getServerErrors(res.status);
+      setErrors(errors);
     }
   }
 

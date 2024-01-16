@@ -39,3 +39,15 @@ export function validateAuth(props: ValidateAuthProps) {
 
   return errors;
 }
+
+export function getServerErrors(code: number) {
+  if (code === 401) {
+    return [{ field: "", message: "Invalid credencials" }];
+  } else if (code === 404) {
+    return [{ field: "", message: "User not found" }];
+  } else if (code === 409) {
+    return [{ field: "", message: "User already exists" }];
+  } else {
+    return [{ field: "", message: "Service unavailable. Try again later" }];
+  }
+}
