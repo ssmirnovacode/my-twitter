@@ -15,7 +15,7 @@ export default function SignoutButton() {
   return (
     <button
       onClick={handleSignout}
-      className="text-green-400 underline p-2 rounded-lg my-5"
+      className="dark:text-green-400 text-green-700 underline p-2 rounded-lg my-5"
     >
       Sign out
     </button>

@@ -48,7 +48,7 @@ export default function DeleteButton({ postId }: { postId: string }) {
         </div>
       ) : (
         <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+          className="dark:bg-slate-900 bg-slate-400  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600 p-2 rounded-lg"
           onClick={() => setShowConfirm(true)}
         >
           Delete post

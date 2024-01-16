@@ -15,7 +15,7 @@ export default function UsersContainer({ endpoint }: { endpoint: string }) {
       {pages}
       <div className="flex justify-center">
         <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg "
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
           onClick={() => setCount(count + 1)}
         >
           Load more

@@ -10,6 +10,8 @@ export default function CreatePost() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    if (!post) return;
+
     const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify({ content: post }),
@@ -36,7 +38,12 @@ export default function CreatePost() {
       ></textarea>
       <button
         type="submit"
-        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg"
+        disabled={!post}
+        className={
+          post
+            ? "dark:bg-slate-900 bg-slate-400  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600 p-2 rounded-lg"
+            : "dark:bg-slate-400 bg-slate-200 p-2 rounded-lg"
+        }
       >
         Let everyone know
       </button>

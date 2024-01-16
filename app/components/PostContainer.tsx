@@ -17,7 +17,7 @@ export default function PostContainer({ username }: { username: string }) {
       {pages}
       <div className="flex flex-row justify-center">
         <button
-          className="my-5 dark:bg-slate-900 bg-slate-400 p-2 rounded-lg "
+          className="my-5 dark:bg-slate-900 bg-slate-400 p-2 rounded-lg transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
           onClick={() => setCount(count + 1)}
         >
           Load more

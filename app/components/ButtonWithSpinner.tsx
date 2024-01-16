@@ -18,7 +18,7 @@ export default function ButtonWithSpinner({
     <button
       className={
         className ||
-        "mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full flex justify-center gap-3"
+        "mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full flex justify-center gap-3 transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
       }
       type="submit"
       onClick={handleClick}
@@ -31,7 +31,7 @@ export default function ButtonWithSpinner({
       href="/signin"
       className={
         className ||
-        "dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2"
+        "dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2 transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
       }
       onClick={handleClick}
     >
