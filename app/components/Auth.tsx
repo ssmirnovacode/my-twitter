@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Spinner from "./Spinner/Spinner";
+import ButtonWithSpinner from "./ButtonWithSpinner";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -9,13 +10,12 @@ export default function Auth() {
   const handleClick = () => setLoading(true);
   return (
     <>
-      <Link
-        href="/signin"
-        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2"
-        onClick={handleClick}
-      >
-        Log in / Register {loading && <Spinner />}
-      </Link>
+      <ButtonWithSpinner
+        handleClick={handleClick}
+        type="link"
+        loading={loading}
+        text="Log in / Register"
+      />
       <p className="w-96 mt-3">
         Please log in or register to be able to view user profiles and have
         access to more functionality

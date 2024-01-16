@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { FormEndpoint } from "@/types";
 import { SIGNUP } from "@/utils/constants";
-import Spinner from "./Spinner/Spinner";
+import ButtonWithSpinner from "./ButtonWithSpinner";
 
 export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   const router = useRouter();
@@ -99,13 +99,14 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
             />
           </div>
         )}
-        <button
+        <ButtonWithSpinner type="button" loading={loading} text={CTA} />
+        {/* <button
           className="mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full flex justify-center gap-3"
           type="submit"
         >
           {CTA}
           {loading && <Spinner />}
-        </button>
+        </button> */}
         {errors.map((err) => (
           <div key={err} className="text-red-600">
             {err}

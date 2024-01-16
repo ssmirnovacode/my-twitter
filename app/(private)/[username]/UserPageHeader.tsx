@@ -1,4 +1,5 @@
 "use client";
+import ButtonWithSpinner from "@/app/components/ButtonWithSpinner";
 import Spinner from "@/app/components/Spinner/Spinner";
 import { notFound } from "next/navigation";
 import { useState } from "react";
@@ -54,21 +55,14 @@ export default function UserPageHeader({ username }: { username: string }) {
   return (
     <header className="w-full bg-slat-800 p-2 rounded-lg flex flew-row justify-between">
       <h2 className="text-lg font-bold">{username}</h2>
-      {dataFollow.data.length ? (
-        <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
-          onClick={handleUnfollow}
-        >
-          Unfollow {loading && <Spinner />}
-        </button>
-      ) : (
-        <button
-          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
-          onClick={handleFollow}
-        >
-          Follow {loading && <Spinner />}
-        </button>
-      )}
+
+      <ButtonWithSpinner
+        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
+        text={dataFollow.data.length ? "Unfollow" : "Follow"}
+        loading={loading}
+        handleClick={dataFollow.data.length ? handleUnfollow : handleFollow}
+        type="button"
+      />
     </header>
   );
 }
