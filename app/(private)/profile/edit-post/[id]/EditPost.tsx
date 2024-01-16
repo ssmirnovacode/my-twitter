@@ -8,10 +8,16 @@ import { useSWRConfig } from "swr";
 export default function EditPost({ prevPost }: { prevPost: IPost }) {
   const { mutate } = useSWRConfig();
   const [post, setPost] = useState(prevPost.content);
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setError("");
+    if (!post) {
+      setError("You are trying to submit an empty post");
+      return;
+    }
 
     const res = await fetch(`/api/posts/${prevPost.id}`, {
       method: "PATCH",
@@ -27,6 +33,8 @@ export default function EditPost({ prevPost }: { prevPost: IPost }) {
       // key is the string of request (Network tab)
       mutate((key) => typeof key === "string" && key.startsWith("/api/posts"));
       router.push("/profile");
+    } else {
+      setError("Failed to edit the post");
     }
   };
 
@@ -38,6 +46,7 @@ export default function EditPost({ prevPost }: { prevPost: IPost }) {
         value={post}
         onChange={(e) => setPost(e.target.value)}
       ></textarea>
+      <div className="text-red-600 my-2">{error}</div>
       <button
         type="submit"
         disabled={!post}

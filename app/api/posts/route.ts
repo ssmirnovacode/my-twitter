@@ -40,6 +40,10 @@ export async function POST(req: Request) {
   const jwtPayload = await getJWTPayload();
   if (!jwtPayload)
     return NextResponse.json({ error: "Unauthenticated" }, { status: 401 });
+  console.log(body.content);
+  if (!body.content) {
+    return NextResponse.json({ error: "Post is empty" }, { status: 404 });
+  }
 
   const res = await sql(
     "insert into posts (user_id, content) values ($1, $2) returning *", //  returning * means the post we just created

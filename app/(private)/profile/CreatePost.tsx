@@ -6,11 +6,15 @@ import { useSWRConfig } from "swr";
 export default function CreatePost() {
   const { mutate } = useSWRConfig();
   const [post, setPost] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    if (!post) return;
+    setError("");
+    if (!post) {
+      setError("You are trying to submit an empty post");
+      return;
+    }
 
     const res = await fetch("/api/posts", {
       method: "POST",
@@ -26,6 +30,9 @@ export default function CreatePost() {
       // key is the string of request (Network tab)
       mutate((key) => typeof key === "string" && key.startsWith("/api/posts"));
     }
+    if (res.status !== 201) {
+      setError("Failed to create the post");
+    }
   };
 
   return (
@@ -36,6 +43,7 @@ export default function CreatePost() {
         value={post}
         onChange={(e) => setPost(e.target.value)}
       ></textarea>
+      <div className="text-red-600 my-2">{error}</div>
       <button
         type="submit"
         disabled={!post}

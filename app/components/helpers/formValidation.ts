@@ -27,6 +27,10 @@ export function validateAuth(props: ValidateAuthProps) {
     // @ts-ignore
     if (!props[field]) {
       errors.push({ field, message: "can not be blank!" });
+    } else if (field === "username" && props[field]?.length < 4) {
+      errors.push({ field, message: "must have at least 4 characters!" });
+    } else if (field === "password" && props[field]?.length < 6) {
+      errors.push({ field, message: "must have at least 6 characters!" });
     }
   });
 
