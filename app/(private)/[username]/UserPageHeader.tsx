@@ -56,13 +56,13 @@ export default function UserPageHeader({ username }: { username: string }) {
     <header className="w-full bg-slat-800 p-2 rounded-lg flex flew-row justify-between">
       <h2 className="text-lg font-bold">{username}</h2>
 
-      <ButtonWithSpinner
+      <button
+        //key={dataFollow.data.length ? "Unfollow" : "Follow"}
         className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
-        text={dataFollow.data.length ? "Unfollow" : "Follow"}
-        loading={loading}
-        handleClick={dataFollow.data.length ? handleUnfollow : handleFollow}
-        type="button"
-      />
+        onClick={dataFollow.data.length ? handleUnfollow : handleFollow}
+      >
+        {dataFollow.data.length ? "Unfollow" : "Follow"}
+      </button>
     </header>
   );
 }
