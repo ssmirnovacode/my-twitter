@@ -50,7 +50,16 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
       endpoint === SIGNUP ? router.push("/signin") : router.push("/feed");
     } else {
       // TODO - display errors
-      alert("Form submission failed!");
+      setLoading(false);
+      if (res.status === 401) {
+        setErrors([{ field: "", message: "Invalid credencials" }]);
+      } else if (res.status === 404) {
+        setErrors([{ field: "", message: "User not found" }]);
+      } else {
+        setErrors([
+          { field: "", message: "Service unavailable. Try again later" },
+        ]);
+      }
     }
   }
 
