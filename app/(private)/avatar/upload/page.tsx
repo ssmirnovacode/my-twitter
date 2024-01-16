@@ -11,6 +11,7 @@ export default function AvatarUploadPage() {
       <h1>Upload Your Avatar</h1>
 
       <form
+        className="my-5 flex"
         onSubmit={async (event) => {
           event.preventDefault();
 
@@ -29,7 +30,12 @@ export default function AvatarUploadPage() {
         }}
       >
         <input name="file" ref={inputFileRef} type="file" required />
-        <button type="submit">Upload</button>
+        <button
+          className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
+          type="submit"
+        >
+          Upload
+        </button>
       </form>
     </>
   );

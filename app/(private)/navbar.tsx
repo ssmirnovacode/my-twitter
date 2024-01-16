@@ -11,7 +11,11 @@ export default function Navbar() {
       <li key={path}>
         <Link
           href={path}
-          className={pathname.startsWith(path) ? "underline font-bold" : ""}
+          className={
+            pathname.startsWith(path)
+              ? "underline font-bold"
+              : "hover:underline"
+          }
         >
           {path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
         </Link>
