@@ -23,47 +23,28 @@ export default function Post({
   return (
     <article className="flex flex-row">
       <div>
-        {!!currentUser ? (
-          avatar ? (
-            <Link href={`/${username}`}>
-              <Image
-                src={avatar}
-                width={50}
-                height={50}
-                alt={username}
-                className="rounded-full mr-3"
-              />
-            </Link>
-          ) : (
-            <Link href={`/${username}`}>
-              <div
-                className="bg-slate-600 rounded-full mr-3"
-                style={{ width: 50, height: 50 }}
-              ></div>
-            </Link>
-          )
-        ) : avatar ? (
-          <Image
-            src={avatar}
-            width={50}
-            height={50}
-            alt={username}
-            className="rounded-full mr-3"
-          />
+        {avatar ? (
+          <Link href={`/${username}`}>
+            <Image
+              src={avatar}
+              width={50}
+              height={50}
+              alt={username}
+              className="rounded-full mr-3"
+            />
+          </Link>
         ) : (
-          <div
-            className="bg-slate-600 rounded-full mr-3"
-            style={{ width: 50, height: 50 }}
-          ></div>
+          <Link href={`/${username}`}>
+            <div
+              className="bg-slate-600 rounded-full mr-3"
+              style={{ width: 50, height: 50 }}
+            ></div>
+          </Link>
         )}
       </div>
       <div className="flex flex-col max-w-xs">
-        <div className="font-bold">
-          {!currentUser ? (
-            username
-          ) : (
-            <Link href={`/${username}`}>{username}</Link>
-          )}
+        <div className="font-bold hover:underline">
+          <Link href={`/${username}`}>{username}</Link>
         </div>
         <div className="text-slate-400">
           {createAt.toLocaleDateString("en-GB", options)}

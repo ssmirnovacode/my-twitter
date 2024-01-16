@@ -100,13 +100,7 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
           </div>
         )}
         <ButtonWithSpinner type="button" loading={loading} text={CTA} />
-        {/* <button
-          className="mt-4 dark:bg-slate-900 bg-slate-400 text-white p-3 rounded-lg w-full flex justify-center gap-3"
-          type="submit"
-        >
-          {CTA}
-          {loading && <Spinner />}
-        </button> */}
+
         {errors.map((err) => (
           <div key={err} className="text-red-600">
             {err}

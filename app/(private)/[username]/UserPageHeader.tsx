@@ -57,7 +57,7 @@ export default function UserPageHeader({ username }: { username: string }) {
       <h2 className="text-lg font-bold">{username}</h2>
 
       <ButtonWithSpinner
-        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32"
+        className="dark:bg-slate-900 bg-slate-400 p-2 rounded-lg flex justify-center gap-3 align-middle w-32  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
         text={dataFollow.data.length ? "Unfollow" : "Follow"}
         loading={loading}
         handleClick={dataFollow.data.length ? handleUnfollow : handleFollow}
