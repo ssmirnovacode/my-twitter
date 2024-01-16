@@ -1,3 +1,5 @@
+import { FORM_FIELDS } from "@/utils/constants";
+
 export interface IUser {
   id: number;
   username: string;
@@ -12,3 +14,10 @@ export interface IPost {
   avatar: string;
 }
 // TODO add updated_at for edited posts
+
+export interface IError {
+  field: string;
+  message: string;
+}
+
+export type FieldLabel = keyof typeof FORM_FIELDS;

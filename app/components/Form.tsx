@@ -2,32 +2,36 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { FormEndpoint } from "@/types";
-import { SIGNUP } from "@/utils/constants";
+import { FORM_FIELDS, LOGIN, SIGNUP } from "@/utils/constants";
 import ButtonWithSpinner from "./ButtonWithSpinner";
+import { validateAuth } from "./helpers/formValidation";
+import { FieldLabel, IError } from "../types";
 
 export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState<undefined | string>("");
-  const [password, setPassword] = useState<undefined | string>("");
-  const [confirmPassword, setConfirmPassword] = useState<undefined | string>(
-    ""
-  );
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<IError[]>([]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
     setErrors([]);
 
-    if (endpoint === SIGNUP && password !== confirmPassword) {
-      const newErrors = [];
-      newErrors.push("Passwords don't match!");
+    const newErrors = validateAuth({
+      username,
+      password,
+      confirmPassword,
+      type: endpoint,
+    });
+
+    if (newErrors.length) {
       setErrors(newErrors);
-      // const timer = setTimeout(() => setErrors([]), 2000);
-      //alert("Passwords don't match!");
+      setLoading(false);
       return;
     }
 
@@ -52,6 +56,23 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
 
   const CTA = endpoint === SIGNUP ? "Sign up" : "Log in";
 
+  const getError = (field: FieldLabel) =>
+    errors.find((item) => item.field === field);
+
+  // const renderError = (field: FieldLabel) => {
+  //   const fieldError = getError(field);
+  //   return fieldError ? (
+  //     <p className="text-red-600">{fieldError.message}</p>
+  //   ) : null;
+  // };
+
+  const getClassName = (field: FieldLabel) => {
+    const inputClasses = "text-black p-3 border border-slate-700 rounded-lg";
+    return getError(field)
+      ? inputClasses + " border-4 border-red-600"
+      : inputClasses;
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -67,43 +88,48 @@ export default function Form({ endpoint }: { endpoint: FormEndpoint }) {
         <div className="flex flex-col gap-2">
           <label htmlFor="username">Username</label>
           <input
-            className="text-black p-3 border border-slate-700 rounded-lg"
+            className={getClassName("username")}
             id="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
+          {/* {renderError("username")} */}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="password">Password</label>
           <input
-            className="text-black p-3 border border-slate-700 rounded-lg"
+            className={getClassName("password")}
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
+          {/* {renderError("password")} */}
         </div>
         {endpoint === SIGNUP && (
           <div className="flex flex-col gap-2">
             <label htmlFor="confirmPassword">Confirm password</label>
             <input
-              className="text-black p-3 border border-slate-700 rounded-lg"
+              className={getClassName("confirmPassword")}
               id="confirmPassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              required
             />
+            {/* {renderError("confirmPassword")} */}
           </div>
         )}
         <ButtonWithSpinner type="button" loading={loading} text={CTA} />
 
         {errors.map((err) => (
-          <div key={err} className="text-red-600">
-            {err}
+          <div key={err.field} className="text-red-600">
+            {err.field === FORM_FIELDS.confirmPassword &&
+            !err.message.includes("blank")
+              ? err.message
+              : `${err.field.slice(0, 1).toUpperCase()}${err.field.slice(1)} ${
+                  err.message
+                }`}
           </div>
         ))}
       </div>
