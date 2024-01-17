@@ -21,7 +21,7 @@ export default function Post({
   const createAt = new Date(created_at);
 
   return (
-    <article className="flex flex-row">
+    <article className="flex flex-row gap-5 justify-between">
       <div>
         {avatar ? (
           <Link href={`/${username}`}>
@@ -30,19 +30,19 @@ export default function Post({
               width={50}
               height={50}
               alt={username}
-              className="rounded-full mr-3"
+              className="rounded-full"
             />
           </Link>
         ) : (
           <Link href={`/${username}`}>
             <div
-              className="bg-slate-600 rounded-full mr-3"
+              className="bg-slate-600 rounded-full"
               style={{ width: 50, height: 50 }}
             ></div>
           </Link>
         )}
       </div>
-      <div className="flex flex-col max-w-xs">
+      <div className="flex flex-col w-10/12">
         <div className="font-bold hover:underline">
           <Link href={`/${username}`}>{username}</Link>
         </div>

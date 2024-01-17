@@ -16,7 +16,7 @@ export default function Auth() {
         loading={loading}
         text="Log in / Register"
       />
-      <p className="w-96 mt-3">
+      <p className="w-11/12 max-w-96 mt-3 text-center">
         Please log in or register to be able to view user profiles and have
         access to more functionality
       </p>
