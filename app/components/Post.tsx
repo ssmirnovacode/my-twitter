@@ -46,7 +46,7 @@ export default function Post({
         <div className="font-bold hover:underline">
           <Link href={`/${username}`}>{username}</Link>
         </div>
-        <div className="text-slate-400">
+        <div className="text-slate-500 ">
           {createAt.toLocaleDateString("en-GB", options)}
         </div>
         <p>{content}</p>

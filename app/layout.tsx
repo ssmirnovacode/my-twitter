@@ -1,3 +1,4 @@
+import ThemeButton from "./components/ThemeButton";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="dark:bg-slate-900 bg-slate-200 dark:text-slate-200 text-slate-900">
+        <ThemeButton />
         {children}
       </body>
     </html>

@@ -31,7 +31,7 @@ export default function ButtonWithSpinner({
       href="/signin"
       className={
         className ||
-        "dark:bg-slate-900 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2 transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
+        "dark:bg-slate-800 bg-slate-400 p-2 rounded-lg w-48 text-center flex justify-center gap-2 transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600"
       }
       onClick={handleClick}
     >
