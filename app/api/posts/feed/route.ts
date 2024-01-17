@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const page = getPageNumber(searchParams);
-  const limit = 10;
+  const limit = 15;
   const offset = page * limit;
   const jwtPayload = await getJWTPayload(); // to know the current user
   if (!jwtPayload)
