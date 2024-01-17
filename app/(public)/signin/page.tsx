@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function SignIn() {
   return (
     <main className="flex min-h-screen items-center justify-center text-black dark:text-white">
-      <div className="flex flex-col gap-2 p-5 max-w-xs w-full dark:bg-slate-800 bg-slate-300">
+      <div className="flex flex-col gap-2 p-5 pt-0 max-w-xs w-full dark:bg-slate-800 bg-slate-300">
         <div className="text-center my-4">
           <h1>WHINE·online</h1>
         </div>

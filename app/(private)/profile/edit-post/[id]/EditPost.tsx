@@ -53,7 +53,7 @@ export default function EditPost({ prevPost }: { prevPost: IPost }) {
         className={
           post
             ? "dark:bg-slate-900 bg-slate-400  transition duration-300  dark:hover:bg-slate-700 hover:bg-slate-600 p-2 rounded-lg"
-            : "dark:bg-slate-400 bg-slate-200 p-2 rounded-lg"
+            : "dark:bg-slate-700 bg-slate-200 p-2 rounded-lg"
         }
       >
         Take your words back

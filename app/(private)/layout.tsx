@@ -17,7 +17,6 @@ export default function PrivateLayout({
     <SWRConfig value={{ fetcher }}>
       <div className="flex flex-col min-h-screen max-w-md m-auto p-2 items-center justify-center">
         <SearchBar />
-        <ThemeButton />
         <Header />
         <Navbar />
         <main className="w-full p-5 dark:bg-slate-800 bg-slate-300 rounded-lg my-2">
