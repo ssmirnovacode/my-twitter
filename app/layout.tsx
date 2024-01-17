@@ -1,8 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WHINE·online",
@@ -16,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className}>{children}</body>
+      <body className="dark:bg-slate-900 bg-slate-200 dark:text-slate-200 text-slate-900">
+        {children}
+      </body>
     </html>
   );
 }
