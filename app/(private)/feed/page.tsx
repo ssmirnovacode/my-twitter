@@ -10,9 +10,9 @@ export default async function Feed() {
   }
 
   return (
-    <main>
+    <div>
       <h2>Feed</h2>
       <FeedContainer />
-    </main>
+    </div>
   );
 }

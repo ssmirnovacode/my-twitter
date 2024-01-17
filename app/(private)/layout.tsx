@@ -14,7 +14,7 @@ export default function PrivateLayout({
   // with SWRConfig provider we won't need to import fetcher again when we use SWR
   return (
     <SWRConfig value={{ fetcher }}>
-      <div className="flex flex-col min-h-screen max-w-md m-auto items-center justify-center">
+      <div className="flex flex-col min-h-screen max-w-md m-auto p-2 items-center justify-center">
         <SearchBar />
         <Header />
         <Navbar />
